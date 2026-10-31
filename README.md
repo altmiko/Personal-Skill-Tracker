@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Forge12
 
 A local-first 12-week SWE and applied AI/ML career sprint dashboard. Track daily work and actual time, milestones, portfolio projects, interview practice and applications. Roadmap goals are suggestions, not recorded achievements.
@@ -31,3 +32,6 @@ For a local build intended for a project subpath, set `BASE_PATH` to `/<reposito
 ## Vercel
 
 Import the repository into Vercel, select the Vite framework preset, use `npm run build`, and publish `dist`. The default base is `/`. Data remains in the individual browser, not on Vercel; use JSON export/import to transfer it.
+=======
+# Personal-Skill-Tracker
+>>>>>>> ed1c56004b44b1ee84c19a85bdf0b6ff94730964
