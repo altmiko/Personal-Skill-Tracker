@@ -2,9 +2,9 @@
 
 A local-first 12-week SWE and applied AI/ML career sprint dashboard. Track daily work and actual time, milestones, portfolio projects, interview practice and applications. Roadmap goals are suggestions, not recorded achievements.
 
-The workspace adapts to desktop and mobile screens. Choose light, dark, or system theme in Settings; navigation and progress indicators use the same palette across the dashboard.
+The workspace uses a task-first learning-journal design and adapts to desktop and mobile screens. Choose light, dark, or system theme in Settings. See `DESIGN.md` for the visual system.
 
-The home page shows the current local date. In Skills & Resources, search by skill, project, or resource, set a self-assessment, and expand a skill for its resources and project tasks. On Today, use “Back to today” after selecting a different date.
+The home page shows the current local date and a seven-day record of completed tasks and logged time. Select a day in the record to open it in Today. Task counts are grouped by the task's date, not by a completion timestamp. In Skills & Resources, search by skill, project, or resource, set a self-assessment, and expand a skill for its resources and project tasks. On Today, use “Back to today” after selecting a different date.
 
 The dashboard's primary buttons adapt the [Neobrutalism Button](https://21st.dev/@ekmas/library/neobrutalism) by Samuel Breznjak, distributed under the MIT license in `LICENSE-neobrutalism.txt`.
 
