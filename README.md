@@ -1,7 +1,10 @@
-<<<<<<< HEAD
-# Forge12
+# SkillTrack
 
 A local-first 12-week SWE and applied AI/ML career sprint dashboard. Track daily work and actual time, milestones, portfolio projects, interview practice and applications. Roadmap goals are suggestions, not recorded achievements.
+
+The workspace adapts to desktop and mobile screens. Choose light, dark, or system theme in Settings; navigation and progress indicators use the same palette across the dashboard.
+
+The dashboard's primary buttons adapt the [Neobrutalism Button](https://21st.dev/@ekmas/library/neobrutalism) by Samuel Breznjak, distributed under the MIT license in `LICENSE-neobrutalism.txt`.
 
 ## Run locally
 
@@ -32,6 +35,3 @@ For a local build intended for a project subpath, set `BASE_PATH` to `/<reposito
 ## Vercel
 
 Import the repository into Vercel, select the Vite framework preset, use `npm run build`, and publish `dist`. The default base is `/`. Data remains in the individual browser, not on Vercel; use JSON export/import to transfer it.
-=======
-# Personal-Skill-Tracker
->>>>>>> ed1c56004b44b1ee84c19a85bdf0b6ff94730964

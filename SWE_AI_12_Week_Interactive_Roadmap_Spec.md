@@ -8,7 +8,7 @@
 
 ## 1. Product brief
 
-**Working name:** Forge12 — SWE + AI/ML Career Sprint
+**Working name:** SkillTrack — SWE + AI/ML Career Sprint
 
 **Audience:** A CS learner with programming fundamentals and limited experience shipping complete applications. Wants both junior SWE/backend and applied AI/ML roles, including Dhaka, Bangladesh and eligible remote roles.
 
@@ -490,4 +490,4 @@ npm run preview
 6. Include complete installation and hosting documentation, and run typecheck/build/tests before presenting the result.
 7. If time is constrained, prioritize daily tracking, full curriculum, three projects, backup and deployability over animations and aesthetic extras.
 
-**Success condition:** I can open Forge12 every morning, see exactly what I need to do, log real work, update project and job progress, check my milestones, and return tomorrow without losing my data.
+**Success condition:** I can open SkillTrack every morning, see exactly what I need to do, log real work, update project and job progress, check my milestones, and return tomorrow without losing my data.
