@@ -78,16 +78,7 @@ Quick actions: **Start focus session**, **Log study time**, **Add task**, **Add 
 - Manual custom task creation, edit/reorder/delete, carry unfinished tasks forward manually; avoid silently rewriting historical logs.
 - A day is “done” by user choice or all mandatory tasks complete, not simply because hours were logged.
 
-**Default six-day schedule (7 focused hours/day; breaks outside the 7h):**
-
-| Local time | Length | Focus |
-|---|---:|---|
-| 09:00–10:30 | 1.5h | Study one concept and practice |
-| 10:45–13:45 | 3h | Implement project features |
-| 14:45–16:15 | 1.5h | Debug, test, refactor, integrate |
-| 16:30–17:30 | 1h | DSA, CS fundamentals, or interviews |
-
-Six days weekly. Sunday rest/optional catch-up. Weekly allocation is approximately 21h initial building + 10.5h related implementation/debugging + 9h learning + 6h DSA? This schedule totals 42h as stated: **9h concept study + 27h project building/debugging + 6h DSA**. Documentation, review and applications should be **integrated within** these blocks or swap in for some time rather than added as fictitious extra hours. Allow users to customize the allocation.
+**Flexible six-day schedule:** Treat 42 hours as an adjustable upper planning target, not a quota. In weeks 1–4, work toward one primary project outcome per day, with optional short, targeted DSA practice and time for review or catch-up. Learn concepts as needed and record actual hours. Weeks 5–12 retain their original AI/ML curriculum and suggested study blocks. Sunday is rest or optional catch-up.
 
 ### C. Roadmap / 12-week planner
 
@@ -141,36 +132,36 @@ Arrays, strings, hash maps, stacks, two pointers, sliding windows, sorting, bina
 
 ## 5. Full 12-week curriculum — treat as seeded roadmap data
 
-Every week: **42 planned hours**, daily updates, weekly retrospective and explicit evidence check. Suggested milestones below represent goals, not automatically achieved outcomes.
+The 42-hour weekly target is adjustable, not a quota. Record actual work and check milestones against evidence; suggestions are not achievements. Weeks 1–4 use one main outcome per day and optional targeted DSA practice. Weeks 5–12 retain their original AI/ML content.
 
-### Week 1 — Python engineering + CLI
-- **Learn:** Python data structures, functions, OOP, type hints, modules, exceptions, virtual environments, file I/O, Git branches/commits, terminal, HTTP fundamentals.
-- **Build:** CLI request tracker storing JSON records with add/list/update/delete, search, sorting and validation.
-- **Practice:** Arrays, strings, hash maps, Big-O.
-- **Gate:** Run tool from README; independently explain code; 8–10 meaningful passing tests; clean Git history.
-- **Proof:** CLI screencast, README, test output.
+### Week 1 — Python, Git + first deployment
+- **Learn:** Brief Python refresher on environments, modules, exceptions, type hints and tests; revisit fundamentals only where needed. Refresh Git commits, branches, merges, conflicts, pushing and secret handling.
+- **Build:** Create a minimal OpsFlow FastAPI health endpoint. Deploy it to a Python-capable host, inspect logs, commit a change and verify redeployment.
+- **Practice:** Diagnose DSA gaps with a few familiar problems and explain complexity.
+- **Gate:** Open the hosted API, redeploy a committed change and explain how to diagnose a failed deployment using logs.
+- **Proof:** Repository, hosted API URL and deployment notes.
 
-### Week 2 — SQL + FastAPI
-- **Learn:** SQL queries, joins, normalized tables, constraints, transactions, basic indexes; PostgreSQL; HTTP status codes, FastAPI, Pydantic, SQLAlchemy, migrations.
-- **Build:** Upgrade request tracker into REST CRUD API with Postgres, filters, pagination and error responses.
-- **Practice:** Two pointers, sliding windows, stacks.
-- **Gate:** Reproduce database via migrations; endpoints work; 10+ API/DB tests; clear API docs.
-- **Proof:** API URL or local OpenAPI screenshots, test report.
+### Week 2 — OpsFlow API + PostgreSQL
+- **Learn:** SQL queries, joins, constraints, transactions, indexes, PostgreSQL, FastAPI, validation, SQLAlchemy and migrations as needed.
+- **Build:** Extend the same API with PostgreSQL-backed CRUD, filtering, pagination and error responses; add meaningful tests and deploy with a hosted database.
+- **Practice:** Target gaps found in the diagnostic.
+- **Gate:** Hosted API creates and retrieves persistent records; migrations recreate the schema and critical tests pass.
+- **Proof:** Hosted API URL, migration instructions and test report.
 
-### Week 3 — TypeScript + React
-- **Learn:** HTML/CSS essentials; JS functions, promises, async/await; TypeScript types; React components, hooks, state, forms, router, fetch.
-- **Build:** OpsFlow frontend for login shell, ticket list/create/edit/detail, loading/error states, API integration.
-- **Practice:** Binary search, sorting, recursion.
-- **Gate:** Create ticket via browser, refresh and verify persistence; no TypeScript compile errors.
-- **Proof:** frontend demo.
+### Week 3 — OpsFlow frontend + deployment
+- **Learn:** The HTML, CSS, JavaScript, TypeScript, React, fetch and CORS needed for the frontend.
+- **Build:** Request list, detail, create and edit views with loading, validation and error states; deploy the frontend and connect it to the API.
+- **Practice:** Target identified DSA gaps and explain solutions.
+- **Gate:** Create and edit a request through the hosted frontend, refresh and verify persistence; the TypeScript build passes.
+- **Proof:** Hosted frontend and API URLs and a short demo.
 
-### Week 4 — OpsFlow launch
-- **Learn:** Authentication and sessions/JWT tradeoffs, authorization, RBAC, web security basics, pytest integration tests, Docker, GitHub Actions, hosting.
-- **Build:** Multi-org permissions, authentication, audit log, analytics view, tests, deployed demo.
-- **Practice:** Linked lists, tree traversals; articulate code choices.
-- **Gate:** Hosted usable demo; cross-organization authorization test; CI passes; 3–5 pilot users invited.
-- **Proof:** Demo URL, GitHub URL, security test, feedback notes.
-- **Career:** Begin 5–8 relevant applications/week; tailor SWE resume.
+### Week 4 — OpsFlow security + launch
+- **Learn:** Authentication, authorization, RBAC, web security, Docker and CI in the context of the release.
+- **Build:** Organization permissions, authentication, audit log, analytics, critical tests, CI, documentation and a hosted demo; invite 3–5 pilot users.
+- **Practice:** Target DSA gaps and explain project decisions.
+- **Gate:** Hosted demo, passing CI, cross-organization authorization test and 3–5 pilot users invited.
+- **Proof:** Demo and repository URLs, security test and feedback notes.
+- **Career:** Begin 5–8 relevant applications/week and tailor the SWE resume.
 
 ### Week 5 — ML + embeddings
 - **Learn:** Train/validation/test, preprocessing, leakage, classification precision/recall/F1, vector math, embeddings, cosine similarity, transformer embedding models.
@@ -323,18 +314,18 @@ Every week: **42 planned hours**, daily updates, weekly retrospective and explic
 
 ## 7. DSA goals and review intervals
 
-Target **~100 independently understood** problems, including reattempts and two mock interviews. Suggested weekly targets:
+Start with a short diagnostic, then use weeks 1–4 for targeted practice and reattempts rather than fixed problem counts. Explain complexity and revisit fundamentals only where needed. Later targets remain suggestions:
 
 | Weeks | Topic | New problems |
 |---|---|---:|
-| 1–2 | Arrays/strings/hash maps, two pointers, sliding windows | 18 |
-| 3–4 | Binary search, sorting, stacks, recursion, linked lists | 18 |
+| 1–2 | Diagnostic and targeted review | As needed |
+| 3–4 | Weak patterns and reattempts | As needed |
 | 5–6 | Trees, BFS/DFS, heaps, graph representation | 18 |
 | 7–8 | Graphs, greedy, introductory DP | 18 |
 | 9–10 | Mixed, SQL, debugging | 18 |
 | 11–12 | Timed problems/review | 12 + 2 mocks |
 
-Sum is **102** new problems. Display targets as suggestions, not fabricated accomplishments. Use tags and spaced review; count “solved independently” separately from “solved with help.” Include short Big-O explanation field.
+Treat later targets as suggestions, not fabricated accomplishments. Use tags and spaced review; count “solved independently” separately from “solved with help.” Include short Big-O explanation field.
 
 ---
 

@@ -1,5 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { createDefaultData, exportData, importData, loadData, saveData, STORAGE_KEY } from './storage';
+import { previousRoadmapTasks, weeks } from './seed';
 
 const values = new Map<string, string>();
 beforeEach(() => {
@@ -35,5 +36,18 @@ describe('local data', () => {
     values.set(STORAGE_KEY, '{bad');
     expect(() => loadData()).toThrow();
     expect(values.get(STORAGE_KEY)).toBe('{bad');
+  });
+});
+
+describe('revised roadmap progress', () => {
+  it('keeps earlier completions separate from revised tasks through backup import', () => {
+    const data = createDefaultData();
+    data.roadmap['1'] = { completedTaskIds: ['w1-learn-1'], milestoneStatus: 'passed', milestoneEvidenceUrl: '', milestoneNotes: 'Earlier evidence', delayed: false };
+    const restored = importData(exportData(data));
+    const completed = restored.roadmap['1'].completedTaskIds;
+    expect(previousRoadmapTasks[1].learn[0]).toBe('Python data structures, functions, OOP and type hints');
+    expect(completed).toContain('w1-learn-1');
+    expect(weeks[0].tasks.filter(task => completed.includes(task.id))).toEqual([]);
+    expect(restored.roadmap['1'].milestoneNotes).toBe('Earlier evidence');
   });
 });

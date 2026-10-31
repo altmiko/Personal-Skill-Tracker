@@ -39,8 +39,8 @@ export const resources: Resource[] = [
 
 // Targets are recommendations, never a record of completed work.
 export const dsaTargets = [
-  { weeks: '1–2', topic: 'Arrays, strings, hash maps, two pointers and sliding windows', newProblems: 18 },
-  { weeks: '3–4', topic: 'Binary search, sorting, stacks, recursion and linked lists', newProblems: 18 },
+  { weeks: '1–2', topic: 'Diagnostic and targeted review of weak patterns', newProblems: null },
+  { weeks: '3–4', topic: 'Targeted practice and reattempts, with complexity explanations', newProblems: null },
   { weeks: '5–6', topic: 'Trees, BFS/DFS, heaps and graph representation', newProblems: 18 },
   { weeks: '7–8', topic: 'Graphs, greedy and introductory dynamic programming', newProblems: 18 },
   { weeks: '9–10', topic: 'Mixed problems, SQL and debugging', newProblems: 18 },
@@ -58,52 +58,64 @@ export const jobSearchLinks: Resource[] = [
 ];
 const r = (...names: string[]) => names.map(name => resources.find(resource => resource.name === name)!).filter(Boolean);
 
-type WeekInput = Omit<WeekSeed, 'tasks' | 'daily'> & { days: [string, string, string, string][] };
+type WeekInput = Omit<WeekSeed, 'tasks' | 'daily'> & { days: ([string, string] | [string, string, string, string])[] };
 function week(input: WeekInput): WeekSeed {
   const { days, ...rest } = input;
-  const tasks: SeedTask[] = (['learn', 'build', 'practice'] as const).flatMap(section => rest[section].map((title, i) => ({ id: `w${rest.number}-${section}-${i + 1}`, title, category: section === 'practice' ? 'dsa' as const : section })));
+  const prefix = rest.number <= 4 ? `w${rest.number}-journal` : `w${rest.number}`;
+  const tasks: SeedTask[] = (['learn', 'build', 'practice'] as const).flatMap(section => rest[section].map((title, i) => ({ id: `${prefix}-${section}-${i + 1}`, title, category: section === 'practice' ? 'dsa' as const : section })));
   tasks.push({ id: `w${rest.number}-review-1`, title: 'Complete a weekly retrospective and collect milestone evidence', category: 'review' });
   if (rest.career) tasks.push({ id: `w${rest.number}-career-1`, title: rest.career, category: 'career' });
-  return { ...rest, tasks, daily: days.map(([learn, build, integrate, practice], i) => ({ day: i + 1, tasks: [
-    { title: learn, category: 'learn', estimatedMinutes: 90 },
-    { title: build, category: 'build', estimatedMinutes: 180 },
-    { title: integrate, category: 'build', estimatedMinutes: 90 },
-    { title: practice, category: i === 5 ? 'review' : 'dsa', estimatedMinutes: 60 },
+  return { ...rest, tasks, daily: days.map((day, i) => ({ day: i + 1, tasks: day.length === 2 ? [
+    { title: day[0], category: 'build', estimatedMinutes: rest.number === 1 && i < 2 ? 60 : 180 },
+    { title: day[1], category: i === 5 ? 'review' : 'dsa', estimatedMinutes: 45 },
+  ] : [
+    { title: day[0], category: 'learn', estimatedMinutes: 90 },
+    { title: day[1], category: 'build', estimatedMinutes: 180 },
+    { title: day[2], category: 'build', estimatedMinutes: 90 },
+    { title: day[3], category: i === 5 ? 'review' : 'dsa', estimatedMinutes: 60 },
   ] })) };
 }
 
+// Original task labels remain available for completed progress from the earlier curriculum.
+export const previousRoadmapTasks: Record<number, Record<string, string[]>> = {
+  1: { learn: ['Python data structures, functions, OOP and type hints', 'Modules, exceptions, virtual environments and file I/O', 'Git branches and commits, terminal and HTTP fundamentals'], build: ['Build a JSON-backed CLI request tracker with add, list, update and delete', 'Add search, sorting and validation', 'Write 8–10 meaningful tests and a runnable README'], practice: ['Arrays, strings, hash maps and Big-O'] },
+  2: { learn: ['SQL queries, joins, normalized tables, constraints, transactions and basic indexes', 'PostgreSQL, HTTP status codes, FastAPI, Pydantic, SQLAlchemy and migrations'], build: ['Upgrade the tracker to a PostgreSQL REST CRUD API', 'Implement filters, pagination and error responses', 'Write 10+ API/database tests and clear API documentation'], practice: ['Two pointers, sliding windows and stacks'] },
+  3: { learn: ['HTML/CSS essentials, JavaScript functions, promises and async/await', 'TypeScript types; React components, hooks, state, forms, routing and fetch'], build: ['Build OpsFlow login shell and ticket list, create, edit and detail views', 'Integrate the API with loading and error states'], practice: ['Binary search, sorting and recursion'] },
+  4: { learn: ['Authentication, session/JWT tradeoffs, authorization, RBAC and web security basics', 'pytest integration tests, Docker, GitHub Actions and hosting'], build: ['Implement authentication, multi-organization permissions, audit log and analytics', 'Add tests, CI and deploy a usable demo', 'Invite 3–5 pilot users'], practice: ['Linked lists and tree traversals; articulate code choices'] },
+};
+
 export const weeks: WeekSeed[] = [
-  week({ number: 1, title: 'Python engineering + CLI', learn: ['Python data structures, functions, OOP and type hints', 'Modules, exceptions, virtual environments and file I/O', 'Git branches and commits, terminal and HTTP fundamentals'], build: ['Build a JSON-backed CLI request tracker with add, list, update and delete', 'Add search, sorting and validation', 'Write 8–10 meaningful tests and a runnable README'], practice: ['Arrays, strings, hash maps and Big-O'], gate: 'Run the tool from the README, independently explain its code, pass 8–10 meaningful tests and maintain clean Git history.', proof: 'CLI screencast, README and test output.', career: 'Set up GitHub, LinkedIn, resume and portfolio; begin shortlisting 30 employers across Weeks 1–3.', resources: r('Python tutorial','Git book','HTTP','pytest','DSA roadmap'), days: [
-    ['Review Python structures and functions', 'Set up repository, environment and CLI skeleton', 'Implement JSON storage and error handling', 'Practice arrays and explain Big-O'],
-    ['Study OOP and type hints', 'Implement add and list commands', 'Validate input and test persistence', 'Practice strings'],
-    ['Study modules, exceptions and file I/O', 'Implement update and delete commands', 'Test missing records and invalid input', 'Practice hash maps'],
-    ['Learn Git branches and commits', 'Implement search and sorting', 'Refactor tracker and review Git history', 'Practice arrays and hash maps'],
-    ['Study HTTP fundamentals', 'Complete tracker functionality', 'Write meaningful automated tests', 'Reattempt a missed problem'],
-    ['Review Python and explain key design choices', 'Finish tests and README', 'Record CLI screencast and gather test output', 'Retrospective; update GitHub, LinkedIn and employer shortlist'],
+  week({ number: 1, title: 'Python, Git + first deployment', learn: ['Briefly refresh Python environments, modules, exceptions, type hints and testing; revisit basics only if needed', 'Refresh Git commits, branches, merges, conflicts, push and secret handling', 'Learn deployment through a working API: hosting, build settings, environment variables, logs and redeployment'], build: ['Create a minimal OpsFlow FastAPI health endpoint in a Git repository', 'Deploy the API to a Python-capable host and verify a change redeploys'], practice: ['Diagnose DSA gaps with a few familiar problems and explain time and space complexity'], gate: 'Open the hosted API, redeploy a committed change and explain how to diagnose a failed deployment using logs.', proof: 'Repository, hosted API URL and deployment notes.', career: 'Set up GitHub, LinkedIn, resume and portfolio; begin shortlisting employers.', resources: r('Python tutorial','Git book','HTTP','FastAPI tutorial','pytest','DSA roadmap'), days: [
+    ['Briefly refresh Python environments, modules and tests; revisit fundamentals only where needed', 'Optional: identify a DSA topic to review'],
+    ['Refresh Git commits, branches, merges and push; practice a simple conflict and keep secrets out of Git', 'Optional: solve a familiar problem and explain its complexity'],
+    ['Create the OpsFlow repository and a minimal FastAPI health endpoint', 'Optional: review a diagnostic DSA gap'],
+    ['Choose a Python-capable host and deploy the API; inspect build and application logs', 'Optional: practice a weak DSA pattern'],
+    ['Commit a change, redeploy and verify the live endpoint; practice diagnosing configuration errors', 'Optional: revisit a missed problem'],
+    ['Document the local setup, hosted URL and deployment steps; review what remains unclear', 'Retrospective and employer shortlist'],
   ] }),
-  week({ number: 2, title: 'SQL + FastAPI', learn: ['SQL queries, joins, normalized tables, constraints, transactions and basic indexes', 'PostgreSQL, HTTP status codes, FastAPI, Pydantic, SQLAlchemy and migrations'], build: ['Upgrade the tracker to a PostgreSQL REST CRUD API', 'Implement filters, pagination and error responses', 'Write 10+ API/database tests and clear API documentation'], practice: ['Two pointers, sliding windows and stacks'], gate: 'Reproduce the database via migrations; endpoints work; 10+ API/DB tests pass; API docs are clear.', proof: 'API URL or local OpenAPI screenshots and test report.', career: 'Continue GitHub, LinkedIn, resume and portfolio setup and the 30-employer shortlist.', resources: r('SQLBolt','PostgreSQL tutorial','FastAPI tutorial','SQLAlchemy tutorial','pytest','DSA roadmap'), days: [
-    ['Study SQL queries and joins', 'Design normalized request tables', 'Add constraints and practice queries', 'Practice two pointers'],
-    ['Study transactions and indexes', 'Set up PostgreSQL and SQLAlchemy models', 'Create and apply initial migration', 'Practice sliding windows'],
-    ['Learn FastAPI, Pydantic and HTTP status codes', 'Implement create and read endpoints', 'Validate requests and test database behavior', 'Practice stacks'],
-    ['Study REST error handling', 'Implement update and delete endpoints', 'Test error responses and transactions', 'Practice two pointers'],
-    ['Study filtering and pagination', 'Implement filtered and paginated listing', 'Write API and database tests', 'Practice sliding windows'],
-    ['Review migrations and API design', 'Complete 10+ tests and API documentation', 'Recreate database and capture OpenAPI/test evidence', 'Retrospective and employer shortlist'],
+  week({ number: 2, title: 'OpsFlow API + PostgreSQL', learn: ['Learn SQL queries, joins, constraints, transactions and indexes as needed', 'Use PostgreSQL, FastAPI, validation, SQLAlchemy and migrations'], build: ['Extend the deployed OpsFlow API with PostgreSQL-backed CRUD, filters, pagination and errors', 'Add meaningful API/database tests, documentation and a hosted database'], practice: ['Practice DSA gaps identified in the diagnostic'], gate: 'A hosted API creates and retrieves persistent PostgreSQL records, migrations recreate the schema and critical tests pass.', proof: 'Hosted API URL, migration instructions and test report.', career: 'Continue GitHub, LinkedIn, resume and portfolio setup and employer shortlist.', resources: r('SQLBolt','PostgreSQL tutorial','FastAPI tutorial','SQLAlchemy tutorial','pytest','DSA roadmap'), days: [
+    ['Design request tables and practice the SQL queries and constraints they need', 'Optional: practice a diagnostic DSA gap'],
+    ['Connect PostgreSQL and SQLAlchemy; create and apply the initial migration', 'Optional: revisit a missed problem'],
+    ['Add validated create and read endpoints', 'Optional: practice explaining complexity'],
+    ['Add update and delete endpoints with clear errors', 'Optional: practice a weak pattern'],
+    ['Add filtering, pagination and tests for critical API and database behavior', 'Optional: reattempt a missed problem'],
+    ['Deploy with a hosted database, configure secrets, verify persistence and document setup', 'Retrospective and employer shortlist'],
   ] }),
-  week({ number: 3, title: 'TypeScript + React', learn: ['HTML/CSS essentials, JavaScript functions, promises and async/await', 'TypeScript types; React components, hooks, state, forms, routing and fetch'], build: ['Build OpsFlow login shell and ticket list, create, edit and detail views', 'Integrate the API with loading and error states'], practice: ['Binary search, sorting and recursion'], gate: 'Create a ticket in the browser, refresh and verify persistence; compile TypeScript without errors.', proof: 'Frontend demo.', career: 'Finish initial GitHub, LinkedIn, resume and portfolio setup; shortlist 30 employers.', resources: r('JavaScript guide','TypeScript handbook','React learn','DSA roadmap'), days: [
-    ['Review HTML, CSS and JavaScript functions', 'Set up TypeScript and React frontend', 'Build layout and navigation', 'Practice binary search'],
-    ['Learn TypeScript types and React components', 'Build ticket list and detail views', 'Handle loading and error states', 'Practice sorting'],
-    ['Study hooks, state and forms', 'Build ticket creation form', 'Connect creation to the API and validate', 'Practice recursion'],
-    ['Learn promises, async/await and fetch', 'Build ticket edit flow', 'Integrate updates and error handling', 'Practice binary search'],
-    ['Study routing and component state', 'Build login shell and navigation', 'Verify ticket persistence after refresh', 'Practice sorting and recursion'],
-    ['Review frontend architecture', 'Polish responsive frontend and type errors', 'Record frontend demo and document setup', 'Retrospective and finish employer shortlist'],
+  week({ number: 3, title: 'OpsFlow frontend + deployment', learn: ['Learn the HTML, CSS, JavaScript, TypeScript and React needed for the frontend', 'Connect frontend and API using fetch, environment configuration and CORS'], build: ['Build request list, detail, create and edit views with loading, validation and error states', 'Deploy the frontend and verify the end-to-end flow on desktop and mobile'], practice: ['Practice identified DSA gaps and explain solutions'], gate: 'Create and edit a request through the hosted frontend, refresh and verify persistence; the TypeScript build passes.', proof: 'Hosted frontend and API URLs, plus a short demo.', career: 'Finish initial GitHub, LinkedIn, resume and portfolio setup and employer shortlist.', resources: r('JavaScript guide','TypeScript handbook','React learn','HTTP','DSA roadmap'), days: [
+    ['Set up the React and TypeScript frontend and learn the essentials needed for its layout', 'Optional: practice a weak DSA pattern'],
+    ['Build request list and detail views with loading and error states', 'Optional: explain a previous solution'],
+    ['Build the request creation form and connect it to the API', 'Optional: reattempt a missed problem'],
+    ['Build editing and validation; verify updates persist', 'Optional: practice a diagnostic gap'],
+    ['Deploy the frontend, configure the API URL and CORS, and check the flow on desktop and mobile', 'Optional: review complexity'],
+    ['Resolve build issues, document the hosted flow and record a demo', 'Retrospective and employer shortlist'],
   ] }),
-  week({ number: 4, title: 'OpsFlow launch', learn: ['Authentication, session/JWT tradeoffs, authorization, RBAC and web security basics', 'pytest integration tests, Docker, GitHub Actions and hosting'], build: ['Implement authentication, multi-organization permissions, audit log and analytics', 'Add tests, CI and deploy a usable demo', 'Invite 3–5 pilot users'], practice: ['Linked lists and tree traversals; articulate code choices'], gate: 'Hosted usable demo, cross-organization authorization test, passing CI and 3–5 pilot users invited.', proof: 'Demo URL, GitHub URL, security test and feedback notes.', career: 'Begin 5–8 relevant applications per week and tailor the SWE resume.', resources: r('FastAPI tutorial','pytest','Docker','GitHub Actions','DSA roadmap'), days: [
-    ['Study sessions, JWT tradeoffs and authentication', 'Implement login and logout', 'Test authentication and secure configuration', 'Practice linked lists'],
-    ['Study authorization and RBAC', 'Implement organizations and memberships', 'Test cross-organization access by guessed ID', 'Practice linked lists'],
-    ['Study auditability and analytics', 'Add audit log and dashboard counts', 'Test reporting and overdue calculations', 'Practice tree traversals'],
-    ['Learn Docker and integration testing', 'Containerize app and database', 'Add migrations and integration tests', 'Practice tree traversals'],
-    ['Learn CI and hosting', 'Configure GitHub Actions and deploy', 'Fix CI and validate hosted demo', 'Explain code choices and practice'],
-    ['Review security and release checklist', 'Invite 3–5 pilot users and gather feedback', 'Publish demo, repo and security evidence', 'Retrospective; tailor SWE resume and apply to 5–8 suitable roles'],
+  week({ number: 4, title: 'OpsFlow security + launch', learn: ['Learn authentication, authorization, RBAC and web security in the context of OpsFlow', 'Learn Docker and CI when needed for the release'], build: ['Add authentication, organization permissions, audit log and analytics', 'Add critical tests and CI, document the demo and invite 3–5 pilot users'], practice: ['Practice identified DSA gaps and explain project choices'], gate: 'Hosted demo, passing CI, cross-organization authorization test and 3–5 pilot users invited.', proof: 'Demo and repository URLs, security test and feedback notes.', career: 'Begin 5–8 relevant applications per week and tailor the SWE resume.', resources: r('FastAPI tutorial','pytest','Docker','GitHub Actions','DSA roadmap'), days: [
+    ['Implement login and logout; test authentication and configuration', 'Optional: practice a weak DSA pattern'],
+    ['Add organization membership and authorization; test cross-organization access', 'Optional: explain a previous solution'],
+    ['Add the audit log and analytics view; verify reporting', 'Optional: reattempt a missed problem'],
+    ['Use Docker and integration tests to make the app reproducible', 'Optional: review complexity'],
+    ['Set up CI, verify the hosted demo and document deployment and security tradeoffs', 'Optional: practice explaining project decisions'],
+    ['Invite 3–5 pilot users and document feedback and release evidence', 'Retrospective; tailor SWE resume and apply to suitable roles'],
   ] }),
   week({ number: 5, title: 'ML + embeddings', learn: ['Train/validation/test splits, preprocessing, leakage and classification precision/recall/F1', 'Vector math, embeddings, cosine similarity and transformer embedding models'], build: ['Build EvidenceLab PDF ingestion with source and page metadata', 'Implement reproducible chunking, embeddings and top-k semantic retrieval'], practice: ['Trees and BFS/DFS'], gate: 'Top-k retrieval returns relevant chunks and correct source references on a test document set.', proof: 'Documented retrieval examples.', career: 'Continue 5–8 suitable junior SWE/backend applications weekly.', resources: r('scikit-learn','Hugging Face learn','pgvector','DSA roadmap'), days: [
     ['Study splits, preprocessing and leakage', 'Set up EvidenceLab and document model', 'Extract PDF text and page metadata', 'Practice trees'],
