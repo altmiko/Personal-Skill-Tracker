@@ -4,6 +4,8 @@ A local-first 12-week SWE and applied AI/ML career sprint dashboard. Track daily
 
 The workspace adapts to desktop and mobile screens. Choose light, dark, or system theme in Settings; navigation and progress indicators use the same palette across the dashboard.
 
+The home page shows the current local date. In Skills & Resources, search by skill, project, or resource, set a self-assessment, and expand a skill for its resources and project tasks. On Today, use “Back to today” after selecting a different date.
+
 The dashboard's primary buttons adapt the [Neobrutalism Button](https://21st.dev/@ekmas/library/neobrutalism) by Samuel Breznjak, distributed under the MIT license in `LICENSE-neobrutalism.txt`.
 
 ## Run locally

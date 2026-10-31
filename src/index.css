@@ -87,10 +87,12 @@ p { line-height: 1.6; }
 .btn.danger { color: #a14646; }
 .btn.small { padding: 5px 9px; font-size: 12px; }
 input:not([type=checkbox]), select, textarea { width: 100%; min-width: 0; border: 2px solid var(--edge); border-radius: 0; padding: 9px 10px; color: var(--text); background: var(--surface); }
-input[type=checkbox] { width: 17px; height: 17px; accent-color: #4e733b; flex: none; }
+input[type=checkbox] { appearance: none; width: 21px; height: 21px; margin: 0; border: 2px solid var(--text); background: var(--surface); flex: none; cursor: pointer; }
+input[type=checkbox]:checked { background: var(--signal) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M4 10.2 8 14l8-8' fill='none' stroke='%23202734' stroke-width='2.8' stroke-linecap='square' stroke-linejoin='miter'/%3E%3C/svg%3E") center / 17px 17px no-repeat; border-color: var(--text); }
+input[type=checkbox]:hover { outline: 2px solid var(--signal); outline-offset: 2px; }
 textarea { min-height: 82px; resize: vertical; }
 label { display: grid; gap: 7px; font-size: 12px; font-weight: 700; color: var(--muted); }
-label.check { display: flex; align-items: flex-start; font-size: 14px; color: inherit; font-weight: 500; line-height: 1.5; }
+label.check { display: inline-flex; align-items: center; gap: 9px; min-height: 32px; font-size: 14px; color: inherit; font-weight: 500; line-height: 1.5; cursor: pointer; }
 .field-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
 .stack { display: grid; gap: 12px; }
 .divider { border: 0; border-top: 2px solid var(--edge); margin: 20px 0; }
@@ -103,6 +105,10 @@ label.check { display: flex; align-items: flex-start; font-size: 14px; color: in
 .task-row.done .task-title { text-decoration: line-through; color: var(--muted); }
 .task-title { font-size: 14px; font-weight: 600; }
 .task-meta { font-size: 12px; color: var(--muted); margin-top: 3px; }
+.task-check { display: flex; color: var(--text); font-weight: 500; cursor: pointer; }
+.task-check .task-title { color: var(--text); }
+.task-check.done .task-title { color: var(--muted); }
+.home-date { max-width: 25ch; }
 .hero { background: var(--slate); color: #f5f7ee; position: relative; overflow: hidden; box-shadow: var(--shadow); }
 .hero h2 { font-size: 27px; letter-spacing: -.04em; margin-top: 25px; max-width: 20ch; }
 .hero p { max-width: 55ch; color: #e0e8df; }
@@ -133,6 +139,27 @@ label.check { display: flex; align-items: flex-start; font-size: 14px; color: in
 .kanban-column { flex: 0 0 235px; background: var(--paper); border: 2px solid var(--edge); padding: 12px; }
 .kanban-column .card { margin-bottom: 10px; padding: 12px; }
 .kanban-column h3 { font-size: 14px; }
+.skills-page { gap: 16px; }
+.skills-page .page-header p { margin: 8px 0 0; }
+.skills-toolbar { display: flex; align-items: end; gap: 12px; flex-wrap: wrap; }
+.skills-toolbar .field { flex: 1 1 260px; max-width: 520px; }
+.skills-count { align-self: center; color: var(--muted); font-size: 13px; font-weight: 600; }
+.skills-help { margin: 0; color: var(--muted); font-size: 13px; }
+.skill-list { border: 2px solid var(--edge); background: var(--surface); }
+.skill-item { padding: 16px 20px; border-bottom: 1px solid var(--edge); }
+.skill-item:last-child { border-bottom: 0; }
+.skill-main { display: flex; align-items: center; justify-content: space-between; gap: 18px; }
+.skill-main h2 { font-size: 18px; margin: 0 0 4px; }
+.skill-priority { color: var(--muted); font-size: 12px; font-weight: 600; }
+.skill-main .field { width: min(230px, 50%); }
+.skill-details { margin-top: 10px; font-size: 14px; }
+.skill-details summary { color: var(--muted); font-weight: 700; cursor: pointer; width: fit-content; padding: 6px 0; }
+.skill-details summary:hover { color: var(--text); }
+.skill-details p { max-width: 75ch; margin: 10px 0; }
+.skill-details h3 { font-size: 14px; margin: 16px 0 6px; }
+.skill-details ul { padding-left: 22px; margin: 6px 0 12px; }
+.skill-details li { margin: 4px 0; }
+summary:focus-visible { outline: 3px solid #7aa559; outline-offset: 3px; }
 .dark { color-scheme: dark; --paper: #202734; --surface: #36415a; --text: #f5f7ee; --muted: #d3ded1; --edge: #101720; --shadow: 4px 4px 0 #101720; color: var(--text); background: var(--paper); }
 .dark a { color: var(--signal-light); }
 .dark .overview-stats .card:first-child { background: var(--signal); }
@@ -158,5 +185,10 @@ label.check { display: flex; align-items: flex-start; font-size: 14px; color: in
   .topbar { font-size: 11px; }
   .topbar-separator { margin: 0 4px; }
   .task-row, .list-item { flex-wrap: wrap; }
+  .skill-item { padding: 15px; }
+  .skill-main { align-items: stretch; flex-direction: column; gap: 10px; }
+  .skill-main .field { width: 100%; }
+  .skills-toolbar .field { max-width: none; }
 }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; } }
+@media (forced-colors: active) { input[type=checkbox] { appearance: auto; } }

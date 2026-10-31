@@ -84,6 +84,25 @@ export function Applications({ data, setData }: Props) {
 
 export function Skills({ data, setData }: Props) {
   const [query, setQuery] = useState('');
-  const visible = skills.filter(s => `${s.name} ${s.priority} ${s.depth} ${s.projects.join(' ')} ${s.resources.map(r => r.name).join(' ')}`.toLowerCase().includes(query.toLowerCase()));
-  return <div className="page-stack"><header className="page-header"><div><p className="eyebrow">BUILD YOUR TOOLKIT</p><h1>Skills & resources</h1><p>Connect the fundamentals to your projects and track your own progress.</p></div></header><section className="card"><h2>Your skill map</h2><p>Levels are subjective self-assessments, not certifications. Choose the level that best reflects your current confidence.</p><Field label="Search skills, projects and resources"><input value={query} onChange={e => setQuery(e.target.value)} placeholder="Search your skill map" /></Field></section><div className="skills-grid">{visible.map(skill => <article className="card" key={skill.name}><span className="badge">{skill.priority}</span><h2>{skill.name}</h2><p>{skill.depth}</p><details><summary>Related project tasks</summary>{projects.filter(p => skill.projects.includes(p.id)).map(p => <div key={p.id}><h3>{p.name}</h3><ul>{p.features.map(f => <li key={f.id}>{f.title}</li>)}</ul></div>)}</details><Field label={`Self-assessment for ${skill.name}`}><select value={data.skills[skill.name] ?? ''} onChange={e => setData(d => ({ ...d, skills: { ...d.skills, [skill.name]: e.target.value } }))}><option value="">Not assessed</option><option>Foundation</option><option>Working</option><option>Interview-ready</option></select></Field><h3>Resources</h3><ul>{skill.resources.map(r => <li key={r.url}><External url={r.url}>{r.name}</External></li>)}</ul></article>)}</div>{visible.length === 0 && <p className="empty">No matching skills or resources.</p>}</div>;
+  const visible = skills.filter(s => `${s.name} ${s.priority} ${s.depth} ${s.projects.join(' ')} ${projects.filter(p => s.projects.includes(p.id)).map(p => p.name).join(' ')} ${s.resources.map(r => r.name).join(' ')}`.toLowerCase().includes(query.trim().toLowerCase()));
+  return <div className="page-stack skills-page">
+    <header className="page-header"><div><h1>Skills & resources</h1><p>Assess your skills and find the resources behind them.</p></div></header>
+    <div className="skills-toolbar">
+      <Field label="Search skills, projects and resources"><input type="search" value={query} onChange={e => setQuery(e.target.value)} placeholder="Search skills or resources" /></Field>
+      <span className="skills-count" aria-live="polite">{visible.length} of {skills.length} skills</span>
+      {query && <button type="button" className="button-secondary" onClick={() => setQuery('')}>Clear search</button>}
+    </div>
+    <p className="skills-help">Levels are your own assessment, not certifications.</p>
+    {visible.length === 0 ? <p className="empty">No matches. Try another search.</p> : <div className="skill-list">{visible.map(skill => <article className="skill-item" key={skill.name}>
+      <div className="skill-main">
+        <div><h2>{skill.name}</h2><span className="skill-priority">{skill.priority}</span></div>
+        <Field label={`Self-assessment for ${skill.name}`}><select value={data.skills[skill.name] ?? ''} onChange={e => setData(d => ({ ...d, skills: { ...d.skills, [skill.name]: e.target.value } }))}><option value="">Not assessed</option><option>Foundation</option><option>Working</option><option>Interview-ready</option></select></Field>
+      </div>
+      <details className="skill-details"><summary>Details & resources</summary>
+        <p>{skill.depth}</p>
+        <h3>Resources</h3><ul>{skill.resources.map(r => <li key={r.url}><External url={r.url}>{r.name}</External></li>)}</ul>
+        <h3>Related project tasks</h3>{projects.filter(p => skill.projects.includes(p.id)).map(p => <div key={p.id}><strong>{p.name}</strong><ul>{p.features.map(f => <li key={f.id}>{f.title}</li>)}</ul></div>)}
+      </details>
+    </article>)}</div>}
+  </div>;
 }
