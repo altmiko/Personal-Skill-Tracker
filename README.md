@@ -10,7 +10,7 @@ The workspace uses a task-first learning-journal design and adapts to desktop an
 
 The home page shows the current local date and a seven-day record of completed tasks and logged time. Select a day in the record to open it in Today. Task counts are grouped by the task's date, not by a completion timestamp. In Skills & Resources, search by skill, project, or resource, set a self-assessment, and expand a skill for its resources and project tasks. On Today, use “Back to today” after selecting a different date.
 
-The **Semantic sprint** navigation opens an accelerated, task-by-task EvidenceLab plan independent of calendar dates and the existing project checklist. Each task includes actions, a completion check, and learning links; use its checkbox to record progress. The final grounded-generation stage is optional. Sprint progress is stored locally and included in JSON backups.
+The **Research Library** navigation opens an accelerated, task-by-task plan based on `research-library-v0.1-plan.md`, independent of calendar dates and the existing EvidenceLab checklist. It covers local PDF ingestion and OCR, SQLite hybrid search, reading and notes, paper relationships, backup and release. Each task includes actions, a completion check and learning links. Previous semantic sprint checks remain in saved data and backups but do not mark the new tasks complete. Sprint progress is stored locally and included in JSON backups; the original 12-week EvidenceLab roadmap remains separate.
 
 The dashboard's primary buttons adapt the [Neobrutalism Button](https://21st.dev/@ekmas/library/neobrutalism) by Samuel Breznjak, distributed under the MIT license in `LICENSE-neobrutalism.txt`.
 
