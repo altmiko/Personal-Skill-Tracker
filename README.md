@@ -2,13 +2,15 @@
 
 A local-first 12-week SWE and applied AI/ML career sprint dashboard. Track daily work and actual time, milestones, portfolio projects, interview practice and applications. Roadmap goals are suggestions, not recorded achievements.
 
-Weeks 1–4 use a concise OpsFlow path: brief Python and Git refreshers, an early API deployment, a database-backed API, a hosted frontend, and a security-focused launch. Daily suggestions provide one primary outcome and optional targeted practice; the 42-hour setting is adjustable, not a quota. Weeks 5–12 retain the AI/ML curriculum.
+Weeks 1–4 use a concise OpsFlow path: reproducible Python/ML project setup with uv, a Flask API exercise, an early FastAPI deployment, a database-backed API, a hosted frontend, and a security-focused launch. Python programming basics are assumed. Daily suggestions provide one primary outcome and optional targeted practice; the 42-hour setting is adjustable, not a quota. Weeks 5–12 retain the AI/ML curriculum, with uv used to set up EvidenceLab.
 
-Existing generated daily tasks are not replaced. Completed tasks from the earlier first four weeks remain visible under “Previous roadmap progress” and in backups, separate from revised tasks. Existing milestone statuses and notes are preserved; review them against the revised gates.
+Existing generated daily tasks are not replaced when the curriculum changes. View the revised suggestions and links under Roadmap, or edit/delete old daily tasks and add the new ones in Today. To start completely fresh, export anything you want to keep and use Settings → Reset all data; this removes all progress and settings. Completed tasks from the earlier first four weeks remain visible under “Previous roadmap progress” and in backups, separate from revised tasks. Existing milestone statuses and notes are preserved; review them against the revised gates.
 
 The workspace uses a task-first learning-journal design and adapts to desktop and mobile screens. Choose light, dark, or system theme in Settings. See `DESIGN.md` for the visual system.
 
 The home page shows the current local date and a seven-day record of completed tasks and logged time. Select a day in the record to open it in Today. Task counts are grouped by the task's date, not by a completion timestamp. In Skills & Resources, search by skill, project, or resource, set a self-assessment, and expand a skill for its resources and project tasks. On Today, use “Back to today” after selecting a different date.
+
+The **Semantic sprint** navigation opens an accelerated, task-by-task EvidenceLab plan independent of calendar dates and the existing project checklist. Each task includes actions, a completion check, and learning links; use its checkbox to record progress. The final grounded-generation stage is optional. Sprint progress is stored locally and included in JSON backups.
 
 The dashboard's primary buttons adapt the [Neobrutalism Button](https://21st.dev/@ekmas/library/neobrutalism) by Samuel Breznjak, distributed under the MIT license in `LICENSE-neobrutalism.txt`.
 

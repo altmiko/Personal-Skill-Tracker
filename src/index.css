@@ -381,3 +381,17 @@ input[type=checkbox]:checked { background-color: #e8c9b6; border-color: #91432d;
   .activity-day:nth-child(n+3) { border-top: 1px solid var(--edge); }
   .activity-heading > span { display: none; }
 }
+
+.sprint-page { max-width: 900px; }
+.sprint-summary { margin-bottom: 22px; }
+.sprint-summary h2, .sprint-stage h2 { margin: 0; }
+.sprint-summary p:last-child { margin-bottom: 0; }
+.sprint-stages { display: grid; gap: 18px; }
+.sprint-stage > p { max-width: 75ch; }
+.sprint-task { border-top: 1px solid var(--edge); padding: 18px 0; scroll-margin-top: 20px; }
+.sprint-task:last-child { padding-bottom: 0; }
+.sprint-task-detail { padding-left: 30px; font-size: 14px; line-height: 1.6; }
+.sprint-task-detail h3 { font-size: 14px; margin: 14px 0 4px; }
+.sprint-task-detail ol, .sprint-task-detail ul { margin: 4px 0 10px; padding-left: 22px; }
+.sprint-task-detail li { margin: 4px 0; }
+.sprint-task-detail p { margin: 10px 0; }

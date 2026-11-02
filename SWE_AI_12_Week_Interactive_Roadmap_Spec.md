@@ -134,12 +134,12 @@ Arrays, strings, hash maps, stacks, two pointers, sliding windows, sorting, bina
 
 The 42-hour weekly target is adjustable, not a quota. Record actual work and check milestones against evidence; suggestions are not achievements. Weeks 1–4 use one main outcome per day and optional targeted DSA practice. Weeks 5–12 retain their original AI/ML content.
 
-### Week 1 — Python, Git + first deployment
-- **Learn:** Brief Python refresher on environments, modules, exceptions, type hints and tests; revisit fundamentals only where needed. Refresh Git commits, branches, merges, conflicts, pushing and secret handling.
-- **Build:** Create a minimal OpsFlow FastAPI health endpoint. Deploy it to a Python-capable host, inspect logs, commit a change and verify redeployment.
+### Week 1 — Python project systems + first deployment
+- **Learn:** Use uv for Python versions, dependencies, lockfiles and reproducible ML environments. Build and test a small Flask API, compare its HTTP interface with FastAPI, and learn Git, configuration and deployment logs.
+- **Build:** Set up a uv-managed ML project and Flask API exercise. Create a minimal OpsFlow FastAPI health endpoint, deploy it, and verify a committed change redeploys.
 - **Practice:** Diagnose DSA gaps with a few familiar problems and explain complexity.
-- **Gate:** Open the hosted API, redeploy a committed change and explain how to diagnose a failed deployment using logs.
-- **Proof:** Repository, hosted API URL and deployment notes.
+- **Gate:** Recreate the ML environment from its lockfile, test the Flask endpoint, open the hosted OpsFlow API and verify a redeployed change.
+- **Proof:** ML project lockfile and run instructions, Flask test, OpsFlow repository and hosted API URL.
 
 ### Week 2 — OpsFlow API + PostgreSQL
 - **Learn:** SQL queries, joins, constraints, transactions, indexes, PostgreSQL, FastAPI, validation, SQLAlchemy and migrations as needed.
@@ -346,6 +346,10 @@ Treat later targets as suggestions, not fabricated accomplishments. Use tags and
 Link resources contextually from the roadmap rather than presenting a giant disconnected bookmark list.
 
 - Python: https://docs.python.org/3/tutorial/
+- uv projects: https://docs.astral.sh/uv/guides/projects/
+- Flask quickstart: https://flask.palletsprojects.com/en/stable/quickstart/
+- Flask testing: https://flask.palletsprojects.com/en/stable/testing/
+- scikit-learn setup: https://scikit-learn.org/stable/getting_started.html
 - Git: https://git-scm.com/book/en/v2
 - HTTP/REST: https://developer.mozilla.org/en-US/docs/Web/HTTP
 - SQL basics: https://sqlbolt.com/

@@ -17,6 +17,10 @@ export type SkillSeed = { name: string; priority: string; depth: string; project
 
 export const resources: Resource[] = [
   { name: 'Python tutorial', url: 'https://docs.python.org/3/tutorial/' },
+  { name: 'uv projects', url: 'https://docs.astral.sh/uv/guides/projects/' },
+  { name: 'Flask quickstart', url: 'https://flask.palletsprojects.com/en/stable/quickstart/' },
+  { name: 'Flask testing', url: 'https://flask.palletsprojects.com/en/stable/testing/' },
+  { name: 'scikit-learn getting started', url: 'https://scikit-learn.org/stable/getting_started.html' },
   { name: 'Git book', url: 'https://git-scm.com/book/en/v2' },
   { name: 'HTTP', url: 'https://developer.mozilla.org/en-US/docs/Web/HTTP' },
   { name: 'SQLBolt', url: 'https://sqlbolt.com/' },
@@ -85,10 +89,10 @@ export const previousRoadmapTasks: Record<number, Record<string, string[]>> = {
 };
 
 export const weeks: WeekSeed[] = [
-  week({ number: 1, title: 'Python, Git + first deployment', learn: ['Briefly refresh Python environments, modules, exceptions, type hints and testing; revisit basics only if needed', 'Refresh Git commits, branches, merges, conflicts, push and secret handling', 'Learn deployment through a working API: hosting, build settings, environment variables, logs and redeployment'], build: ['Create a minimal OpsFlow FastAPI health endpoint in a Git repository', 'Deploy the API to a Python-capable host and verify a change redeploys'], practice: ['Diagnose DSA gaps with a few familiar problems and explain time and space complexity'], gate: 'Open the hosted API, redeploy a committed change and explain how to diagnose a failed deployment using logs.', proof: 'Repository, hosted API URL and deployment notes.', career: 'Set up GitHub, LinkedIn, resume and portfolio; begin shortlisting employers.', resources: r('Python tutorial','Git book','HTTP','FastAPI tutorial','pytest','DSA roadmap'), days: [
-    ['Briefly refresh Python environments, modules and tests; revisit fundamentals only where needed', 'Optional: identify a DSA topic to review'],
-    ['Refresh Git commits, branches, merges and push; practice a simple conflict and keep secrets out of Git', 'Optional: solve a familiar problem and explain its complexity'],
-    ['Create the OpsFlow repository and a minimal FastAPI health endpoint', 'Optional: review a diagnostic DSA gap'],
+  week({ number: 1, title: 'Python project systems + first deployment', learn: ['Use uv to manage Python versions, dependencies, lockfiles and reproducible environments for an ML project', 'Learn HTTP interfaces and build and test a small Flask API; compare its request handling with FastAPI', 'Use Git, environment configuration and deployment logs to ship and redeploy an API'], build: ['Set up a reproducible ML project and a small Flask API exercise', 'Create and deploy the OpsFlow FastAPI health endpoint, then verify a committed change redeploys'], practice: ['Diagnose DSA gaps with a few familiar problems and explain time and space complexity'], gate: 'Recreate the ML environment from its lockfile, test a Flask endpoint, open the hosted OpsFlow API and verify a redeployed change.', proof: 'ML project lockfile and run instructions, Flask test, OpsFlow repository and hosted API URL.', career: 'Set up GitHub, LinkedIn, resume and portfolio; begin shortlisting employers.', resources: r('uv projects','scikit-learn getting started','Flask quickstart','Flask testing','Git book','HTTP','FastAPI tutorial','pytest','DSA roadmap'), days: [
+    ['Install uv; initialize an ML project, add scikit-learn, commit pyproject.toml and uv.lock, and run a small dataset-loading script with uv run', 'Optional: identify a DSA topic to review'],
+    ['Build a separate Flask health endpoint; run it locally, inspect its HTTP response, and write a test using the Flask test client', 'Optional: solve a familiar problem and explain its complexity'],
+    ['Create the OpsFlow Git repository and a minimal FastAPI health endpoint; compare its request and response interface with the Flask exercise', 'Optional: review a diagnostic DSA gap'],
     ['Choose a Python-capable host and deploy the API; inspect build and application logs', 'Optional: practice a weak DSA pattern'],
     ['Commit a change, redeploy and verify the live endpoint; practice diagnosing configuration errors', 'Optional: revisit a missed problem'],
     ['Document the local setup, hosted URL and deployment steps; review what remains unclear', 'Retrospective and employer shortlist'],
@@ -118,7 +122,7 @@ export const weeks: WeekSeed[] = [
     ['Invite 3–5 pilot users and document feedback and release evidence', 'Retrospective; tailor SWE resume and apply to suitable roles'],
   ] }),
   week({ number: 5, title: 'ML + embeddings', learn: ['Train/validation/test splits, preprocessing, leakage and classification precision/recall/F1', 'Vector math, embeddings, cosine similarity and transformer embedding models'], build: ['Build EvidenceLab PDF ingestion with source and page metadata', 'Implement reproducible chunking, embeddings and top-k semantic retrieval'], practice: ['Trees and BFS/DFS'], gate: 'Top-k retrieval returns relevant chunks and correct source references on a test document set.', proof: 'Documented retrieval examples.', career: 'Continue 5–8 suitable junior SWE/backend applications weekly.', resources: r('scikit-learn','Hugging Face learn','pgvector','DSA roadmap'), days: [
-    ['Study splits, preprocessing and leakage', 'Set up EvidenceLab and document model', 'Extract PDF text and page metadata', 'Practice trees'],
+    ['Study splits, preprocessing and leakage', 'Set up EvidenceLab with uv and a locked project environment', 'Extract PDF text and page metadata', 'Practice trees'],
     ['Study precision, recall and F1', 'Create reproducible chunking with IDs', 'Test chunk boundaries and source references', 'Practice BFS'],
     ['Learn vectors and cosine similarity', 'Set up embedding model and index', 'Test embedding and similarity calculations', 'Practice DFS'],
     ['Study transformer embedding models', 'Implement top-k semantic retrieval', 'Inspect relevance and metadata', 'Practice trees'],
